@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Stackly Atelier</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{
+  --header:#E8C5B5;--bg:#F6E9DC;--footer:#D9A99D;--text:#392B27;
+  --accent:#A97867;--button:#795348;--gold:#C9A96E;--deep:#3D2A22;
+  --line: rgba(61,48,50,0.14);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;overflow-x:hidden;}
+body{background:var(--bg);color:var(--text);font-family:'Jost',sans-serif;font-weight:300;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+::selection{background:var(--accent);color:#fff;}
+a{text-decoration:none;color:inherit;}
+img{display:block;max-width:100%;}
+h1,h2,h3,h4{font-family:'Cormorant Garamond',serif;font-weight:500;color:var(--deep);}
+.eyebrow{font-size:0.72rem;letter-spacing:0.32em;text-transform:uppercase;color:var(--button);font-weight:500;display:inline-flex;align-items:center;gap:12px;}
+.eyebrow::before{content:"";width:28px;height:1px;background:var(--button);display:inline-block;}
+.wrap{max-width:2000px;margin:0 auto;padding:0 6vw;}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:16px 34px;border:1px solid var(--button);color:var(--button);font-size:0.78rem;letter-spacing:0.2em;text-transform:uppercase;position:relative;overflow:hidden;background:transparent;cursor:pointer;font-family:'Jost',sans-serif;transition:color .5s ease;}
+.btn span{position:relative;z-index:2;}
+.btn::before{content:"";position:absolute;inset:0;background:var(--button);transform:translateY(101%);transition:transform .5s cubic-bezier(.65,0,.35,1);z-index:1;}
+.btn:hover{color:#fff;}
+.btn:hover::before{transform:translateY(0);}
+.btn.solid{background:var(--button);color:#fff;}
+.btn.solid::before{background:var(--deep);}
+
+
+header{position:fixed;top:0;left:0;width:100%;z-index:500;background:var(--header);border-bottom:1px solid rgba(61,48,50,0.08);transition:transform .5s ease;}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;max-width:2000px;margin:0 auto;padding:18px 6vw;}
+.logo{display:flex;align-items:center;gap:2px;}.logo-mark{height:2.5rem;width:auto;object-fit:contain;display:block;flex-shrink:0;}.footer-brand .logo-mark{height:2.2rem;}
+.logo .logo-text{font-family:'Cormorant Garamond',serif;font-size:1.65rem;font-weight:600;letter-spacing:0.01em;color:var(--deep);line-height:1;white-space:nowrap;}
+nav.main-nav ul{list-style:none;display:flex;gap:44px;}
+nav.main-nav a{font-size:0.8rem;letter-spacing:0.14em;text-transform:uppercase;position:relative;padding-bottom:4px;}
+nav.main-nav a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--deep);transition:width .4s ease;}
+nav.main-nav a:hover::after,nav.main-nav a.active::after{width:100%;}
+.nav-right{display:flex;align-items:center;gap:26px;}
+.icon-btn{font-size:0.78rem;letter-spacing:0.14em;text-transform:uppercase;border:1px solid var(--button);padding:10px 22px;}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:600;}
+.hamburger span{width:26px;height:1px;background:var(--deep);display:block;transition:all .4s ease;}
+.hamburger span{transform-origin:center;}
+.hamburger.active span:nth-child(1){transform:translateY(6px) rotate(45deg);}
+.hamburger.active span:nth-child(2){opacity:0;}
+.hamburger.active span:nth-child(3){transform:translateY(-6px) rotate(-45deg);}
+.mobile-nav{position:fixed;inset:0;background:var(--header);z-index:450;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px;transform:translateY(-100%);transition:transform .6s cubic-bezier(.65,0,.35,1);}
+.mobile-nav.open{transform:translateY(0);}
+.mobile-nav a{font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--deep);}
+
+/* Page hero */
+.page-hero{position:relative;min-height:64vh;display:flex;align-items:flex-end;padding:180px 0 80px;overflow:hidden;}
+.page-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;transform:scale(1.15);}
+.page-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(61,48,50,0.25),rgba(61,48,50,0.68));z-index:1;}
+.page-hero .wrap{position:relative;z-index:2;color:#fff;}
+.page-hero .eyebrow{color:var(--header);}
+.page-hero .eyebrow::before{background:var(--header);}
+.page-hero h1{color:#fff;font-size:clamp(2.6rem,6vw,5rem);margin-top:20px;max-width:820px;line-height:1.05;}
+.page-hero .line{display:block;overflow:hidden;}
+.page-hero .char{display:inline-block;transform:translateY(110%);}
+
+.ticker-strip{background:var(--deep);padding:22px 0;overflow:hidden;position:relative;border-top:1px solid var(--gold);border-bottom:1px solid var(--gold);}
+.ticker-track{display:flex;white-space:nowrap;width:max-content;}
+.ticker-track span{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.6rem;color:var(--header);padding:0 40px;display:inline-flex;align-items:center;gap:40px;}
+.ticker-track span::after{content:"✦";color:var(--gold);font-style:normal;font-size:0.9rem;}
+
+section{padding:140px 0;position:relative;}
+.section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin-bottom:70px;flex-wrap:wrap;}
+.section-head h2{font-size:clamp(2.2rem,4vw,3.4rem);max-width:640px;line-height:1.05;}
+.section-head p{max-width:320px;font-size:0.95rem;line-height:1.75;opacity:0.75;}
+.reveal{opacity:0;transform:translateY(60px);}
+
+/* Intro / mission */
+.mission{display:grid;grid-template-columns:0.6fr 1.4fr;gap:80px;}
+.mission h2{font-size:clamp(1.9rem,3.4vw,2.7rem);line-height:1.3;}
+.mission-body p{font-size:1.05rem;line-height:1.9;opacity:0.85;margin-bottom:20px;}
+
+/* Timeline */
+.timeline{background:var(--header);}
+.tl-item{display:grid;grid-template-columns:160px 1fr;gap:40px;padding:40px 0;border-top:1px solid rgba(61,48,50,0.15);}
+.tl-item:last-child{border-bottom:1px solid rgba(61,48,50,0.15);}
+.tl-year{font-family:'Cormorant Garamond',serif;font-size:2.2rem;color:var(--accent);}
+.tl-copy h3{font-size:1.5rem;margin-bottom:10px;}
+.tl-copy p{opacity:0.8;line-height:1.75;max-width:600px;}
+
+/* Values */
+.values-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;}
+.value-card{padding:44px 34px;background:var(--bg);border:1px solid var(--line);transition:border-color .4s ease, transform .4s ease;}
+.value-card:hover{border-color:var(--accent);transform:translateY(-8px);}
+.value-card .vc-num{font-family:'Cormorant Garamond',serif;color:var(--gold);font-size:1.1rem;}
+.value-card h3{font-size:1.5rem;margin:18px 0 12px;}
+.value-card p{font-size:0.92rem;line-height:1.75;opacity:0.78;}
+
+/* Founder */
+.founder{background:var(--deep);color:var(--header);padding-bottom:60px;}
+.founder-grid{display:grid;grid-template-columns:0.8fr 1.2fr;gap:70px;align-items:center;}
+.founder-media{overflow:hidden;aspect-ratio:4/5;max-height:560px;margin:0 auto;}
+.founder-media img{width:100%;height:100%;object-fit:cover;}
+.founder h2{color:var(--header);}
+.founder .eyebrow{color:var(--gold);}
+.founder .eyebrow::before{background:var(--gold);}
+.founder blockquote{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.7rem;line-height:1.5;margin:26px 0 26px;color:#fff;}
+.founder .fname{font-size:0.9rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold);}
+.founder .frole{font-size:0.8rem;opacity:0.7;margin-top:4px;}
+
+/* Team */
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:30px;}
+.team-card{position:relative;overflow:hidden;aspect-ratio:3/4;}
+.team-card img{width:100%;height:100%;object-fit:cover;transition:transform 1s cubic-bezier(.16,1,.3,1);}
+.team-card:hover img{transform:scale(1.08);}
+.team-card .overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(61,48,50,0) 50%,rgba(61,48,50,0.85) 100%);}
+.team-card .tc-info{position:absolute;left:22px;bottom:20px;color:#fff;}
+.team-card .tc-info h4{color:#fff;font-size:1.2rem;}
+.team-card .tc-info small{font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;opacity:0.8;}
+
+/* CTA */
+.cta-band{background:var(--footer);text-align:center;}
+.cta-band h2{font-size:clamp(2rem,4.4vw,3.2rem);max-width:700px;margin:0 auto 34px;}
+
+footer{background:var(--deep);padding-top:100px;color:#F6E9DC;}
+.footer-grid{display:grid;grid-template-columns:1.3fr 0.85fr 0.85fr 1fr;gap:40px;padding-bottom:70px;border-bottom:1px solid rgba(246,233,220,0.15);}
+.footer-brand .logo{margin-bottom:20px;display:inline-flex;align-items:center;gap:8px;}
+.footer-brand .logo .logo-text{color:#F6E9DC;}
+.footer-brand p{font-size:0.92rem;line-height:1.8;max-width:270px;opacity:0.72;color:#F6E9DC;}
+.footer-social{display:flex;gap:12px;margin-top:24px;}
+.footer-social a{width:36px;height:36px;border:1px solid rgba(246,233,220,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#F6E9DC;transition:all .3s ease;}
+.footer-social a svg{width:16px;height:16px;fill:currentColor;display:block;}
+.footer-social a:hover{background:var(--gold);border-color:var(--gold);color:var(--deep);}
+footer h4{font-size:0.75rem;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:22px;color:var(--gold);}
+footer ul{list-style:none;display:flex;flex-direction:column;gap:12px;}
+footer ul a{font-size:0.9rem;opacity:0.72;color:#F6E9DC;}
+footer ul a:hover{opacity:1;text-decoration:underline;}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;padding:26px 0;font-size:0.78rem;opacity:0.6;flex-wrap:wrap;gap:14px;color:#F6E9DC;}
+.footer-bottom .footer-legal{display:flex;gap:20px;flex-wrap:wrap;}
+.footer-bottom .footer-legal a{color:#F6E9DC;opacity:0.72;transition:opacity .3s ease;}
+.footer-bottom .footer-legal a:hover{opacity:1;text-decoration:underline;}
+
+/* Process */
+.process{background:var(--bg);}
+.process-line{position:relative;height:2px;background:var(--line);margin-bottom:70px;overflow:hidden;}
+.process-line-fill{position:absolute;left:0;top:0;height:100%;width:0%;background:var(--accent);}
+.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:30px;}
+.process-card{position:relative;}
+.process-media{aspect-ratio:3/4;overflow:hidden;margin-bottom:26px;}
+.process-media img{width:100%;height:100%;object-fit:cover;transition:transform 1s cubic-bezier(.16,1,.3,1);}
+.process-card:hover .process-media img{transform:scale(1.08);}
+.process-step{font-family:'Cormorant Garamond',serif;color:var(--gold);font-size:1.1rem;margin-bottom:10px;}
+.process-card h3{font-size:1.35rem;margin-bottom:10px;}
+.process-card p{font-size:0.9rem;line-height:1.7;opacity:0.78;}
+
+/* Materials */
+.materials{background:var(--header);}
+.materials-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
+.material-card{position:relative;overflow:hidden;aspect-ratio:1/1.15;}
+.material-card img{width:100%;height:100%;object-fit:cover;transition:transform 1.1s cubic-bezier(.16,1,.3,1);}
+.material-card:hover img{transform:scale(1.1);}
+.material-card .overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(61,48,50,0) 45%,rgba(61,48,50,0.88) 100%);}
+.material-card .mc-info{position:absolute;left:20px;bottom:18px;color:#fff;}
+.material-card .mc-info small{font-size:0.66rem;letter-spacing:0.14em;text-transform:uppercase;opacity:0.75;display:block;margin-bottom:4px;}
+.material-card .mc-info h4{color:#fff;font-size:1.3rem;}
+
+/* Ateliers split */
+.ateliers-split{padding:0;}
+.split-row{display:grid;grid-template-columns:1fr 1fr;min-height:640px;}
+.split-col{position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:60px;}
+.split-col img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;}
+.split-col::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(61,48,50,0.1),rgba(61,48,50,0.78));z-index:1;}
+.split-content{position:relative;z-index:2;color:#fff;}
+.split-content .eyebrow{color:var(--header);}
+.split-content .eyebrow::before{background:var(--header);}
+.split-content h3{color:#fff;font-size:2.2rem;margin:14px 0 12px;}
+.split-content p{font-size:0.92rem;line-height:1.75;opacity:0.85;max-width:360px;}
+.split-clip{clip-path:inset(0 0 100% 0);}
+
+/* Stats */
+.stats-band{background:var(--deep);color:#fff;padding-top:60px;}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:30px;text-align:center;}
+.stat-item .stat-num{font-family:'Cormorant Garamond',serif;font-size:clamp(2.6rem,5vw,4rem);color:var(--gold);line-height:1;}
+.stat-item .stat-label{margin-top:14px;font-size:0.78rem;letter-spacing:0.14em;text-transform:uppercase;opacity:0.75;}
+
+/* Press */
+.press{background:var(--bg);text-align:center;}
+.press .eyebrow{justify-content:center;}
+.press-row{display:flex;justify-content:center;align-items:center;gap:60px;flex-wrap:wrap;margin:50px 0 60px;}
+.press-row span{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.6rem;opacity:0.55;transition:opacity .4s ease;}
+.press-row span:hover{opacity:1;color:var(--accent);}
+.press-quote{max-width:760px;margin:0 auto;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.6rem;line-height:1.6;color:var(--deep);}
+.press-quote small{display:block;margin-top:18px;font-family:'Jost',sans-serif;font-style:normal;font-size:0.75rem;letter-spacing:0.14em;text-transform:uppercase;opacity:0.6;}
+
+/* Gallery */
+.gallery{background:var(--header);}
+.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:180px;grid-auto-flow:dense;gap:20px;}
+.g-item{position:relative;overflow:hidden;}
+.g-item img{width:100%;height:100%;object-fit:cover;transition:transform 1.1s cubic-bezier(.16,1,.3,1);}
+.g-item:hover img{transform:scale(1.1) rotate(1deg);}
+.g-item.tall{grid-row:span 2;}
+.g-item.wide{grid-column:span 2;}
+
+/* Testimonials */
+.testimonials{background:var(--bg);}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;}
+.testi-card{padding:40px 34px;background:#fff;border:1px solid var(--line);}
+.testi-stars{color:var(--gold);font-size:0.9rem;letter-spacing:2px;margin-bottom:18px;}
+.testi-card p{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.25rem;line-height:1.6;color:var(--deep);margin-bottom:22px;}
+.testi-name{font-size:0.85rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--button);}
+.testi-role{font-size:0.78rem;opacity:0.6;margin-top:3px;}
+
+@media(max-width:1024px){
+  .mission,.founder-grid{grid-template-columns:1fr;}
+  .values-grid,.process-grid,.materials-grid{grid-template-columns:repeat(2,1fr);}
+  .team-grid{grid-template-columns:repeat(2,1fr);}
+  .footer-grid{grid-template-columns:repeat(2,1fr);gap:36px 30px;}
+  .stats-grid,.testi-grid{grid-template-columns:repeat(2,1fr);gap:36px;}
+  .split-row{grid-template-columns:1fr;}
+  .gallery-grid{grid-template-columns:repeat(2,1fr);}
+  .g-item.wide{grid-column:span 1;}
+}
+@media(max-width:768px){
+  nav.main-nav,.icon-btn{display:none;}
+  .hamburger{display:flex;}
+  section{padding:90px 0;}
+  .values-grid,.team-grid,.process-grid,.materials-grid,.stats-grid,.testi-grid{grid-template-columns:1fr;}
+  .tl-item{grid-template-columns:1fr;gap:10px;}
+  .footer-grid{grid-template-columns:1fr;gap:36px;}
+  .press-row{gap:30px;}
+  .split-col{padding:36px;min-height:60vh;}
+}
+@media(max-width:480px){.wrap{padding:0 22px;}.nav-inner{padding:18px 22px;}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-inner">
+    <a href="index.html" class="logo"><img src="stackly-logo.webp" alt="Stackly" class="logo-mark"><span class="logo-text">Stackly</span></a>
+    <nav class="main-nav">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html" class="active">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="blog.html">Journal</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="nav-right">
+      <a href="login.html" class="icon-btn">Login</a>
+      <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-nav" id="mobileNav">
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="services.html">Services</a>
+  <a href="blog.html">Journal</a>
+  <a href="contact.html">Contact</a>
+  <a href="login.html">Login</a>
+</div>
+
+<section class="page-hero">
+  <img src="./assets/work room.webp" alt="Atelier workroom">
+  <div class="wrap">
+    <span class="eyebrow">Our Story</span>
+    <h1><span class="line">Crafted by hand,</span><span class="line">worn with intention.</span></h1>
+  </div>
+</section>
+
+<div class="ticker-strip">
+  <div class="ticker-track" id="tickerTrack">
+    <span>Since 2008</span><span>Chennai · Salem</span><span>Hand-Finished</span><span>Slow Fashion</span><span>Made to Measure</span>
+    <span>Since 2008</span><span>Chennai · Salem</span><span>Hand-Finished</span><span>Slow Fashion</span><span>Made to Measure</span>
+  </div>
+</div>
+
+<section class="mission-sec">
+  <div class="wrap mission">
+    <div class="reveal">
+      <span class="eyebrow">Our Mission</span>
+      <h2 style="margin-top:22px;">Designing garments that age like heirlooms, not trends.</h2>
+    </div>
+    <div class="mission-body reveal">
+      <p>Stackly began in a single-room workshop in Chennai in 2008, with three tailors and a shared conviction: that clothing should be made to last generations, not seasons. Today, that conviction still drives every collection — from the mills we source from, to the hands that finish each seam.</p>
+      <p>We work in small batches by design. Every silhouette passes through a founder-led design review, a hand-draping stage, and a private fitting before it ever reaches a client — a process that resists shortcuts, and always will.</p>
+      <a href="./404.html" class="btn"><span>Explore Our Services</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="process">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2>From sketch to seam, nothing is rushed.</h2>
+      <p>Every piece moves through four deliberate stages before it earns the Stackly label.</p>
+    </div>
+    <div class="process-line"><div class="process-line-fill" id="processFill"></div></div>
+    <div class="process-grid">
+      <div class="process-card reveal">
+        <div class="process-media"><img src="./assets/design.webp" alt="Sketching a design"></div>
+        <div class="process-step">01</div>
+        <h3>Sketch &amp; Design</h3>
+        <p>Every silhouette starts as a hand-drawn sketch, reviewed and refined by our founder before it's cut.</p>
+      </div>
+      <div class="process-card reveal">
+        <div class="process-media"><img src="./assets/fabric selection.webp" alt="Selecting fabric"></div>
+        <div class="process-step">02</div>
+        <h3>Fabric Selection</h3>
+        <p>We source directly from mills in Mysore, Varanasi, and Lyon, hand-checking every bolt for weight and drape.</p>
+      </div>
+      <div class="process-card reveal">
+        <div class="process-media"><img src="./assets/hand wrap.webp" alt="Hand draping fabric"></div>
+        <div class="process-step">03</div>
+        <h3>Hand Draping</h3>
+        <p>Cloth is draped directly on a form, letting the fabric's own weight guide the final pattern.</p>
+      </div>
+      <div class="process-card reveal">
+        <div class="process-media"><img src="./assets/fitting.webp" alt="Finishing and fitting a garment"></div>
+        <div class="process-step">04</div>
+        <h3>Finishing &amp; Fitting</h3>
+        <p>A private fitting closes the process, with hand-finished seams adjusted to the client's exact form.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="timeline">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2>Two decades, told in milestones.</h2>
+      <p>A house built stitch by stitch, city by city.</p>
+    </div>
+    <div class="tl-item reveal"><div class="tl-year">2008</div><div class="tl-copy"><h3>The First Atelier</h3><p>Founded in a single room in Chennai with three master tailors and a hand-cranked sewing machine.</p></div></div>
+    <div class="tl-item reveal"><div class="tl-year">2013</div><div class="tl-copy"><h3>The Bridal Line Launches</h3><p>Maison Blanche debuts, redefining South Indian bridal couture with European tailoring techniques.</p></div></div>
+    <div class="tl-item reveal"><div class="tl-year">2018</div><div class="tl-copy"><h3>Salem Atelier Opens</h3><p>A second home for Stackly, pairing our founding tailoring traditions with a new generation of master weavers.</p></div></div>
+    <div class="tl-item reveal"><div class="tl-year">2024</div><div class="tl-copy"><h3>60 Artisans Strong</h3><p>Our ateliers now employ over sixty artisans across embroidery, tailoring, and leatherwork.</p></div></div>
+  </div>
+</section>
+
+<section class="materials">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2>Materials we stand behind.</h2>
+      <p>Every fabric in the atelier is traceable to a single mill and, often, a single family of weavers.</p>
+    </div>
+    <div class="materials-grid">
+      <div class="material-card reveal"><img src="./assets/mulberry silk.webp" alt="Mysore silk fabric"><div class="overlay"></div><div class="mc-info"><small>Mysore, India</small><h4>Pure Mulberry Silk</h4></div></div>
+      <div class="material-card reveal"><img src="./assets/merino wool.webp" alt="Merino wool fabric"><div class="overlay"></div><div class="mc-info"><small>Ludhiana, India</small><h4>Merino Wool</h4></div></div>
+      <div class="material-card reveal"><img src="./assets/lace.webp" alt="French lace fabric"><div class="overlay"></div><div class="mc-info"><small>Calais, France</small><h4>Chantilly Lace</h4></div></div>
+      <div class="material-card reveal"><img src="./assets/leather.webp" alt="Vegetable tanned leather"><div class="overlay"></div><div class="mc-info"><small>Chennai, India</small><h4>Vegetable-Tanned Leather</h4></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="values">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2>What we hold non-negotiable.</h2>
+    </div>
+    <div class="values-grid">
+      <div class="value-card reveal"><span class="vc-num">01</span><h3>Slow by Design</h3><p>We release two considered collections a year, never chasing trend cycles.</p></div>
+      <div class="value-card reveal"><span class="vc-num">02</span><h3>Hand Over Machine</h3><p>Every finishing seam, hem, and closure is completed by hand, not automated.</p></div>
+      <div class="value-card reveal"><span class="vc-num">03</span><h3>Radical Transparency</h3><p>We disclose every mill, every artisan, and every material we work with.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="ateliers-split">
+  <div class="split-row">
+    <div class="split-col">
+      <img src="./assets/chennai interior.webp" alt="Chennai atelier interior">
+      <div class="split-content split-clip">
+        <span class="eyebrow">Home Atelier</span>
+        <h3>Chennai</h3>
+        <p>Our founding workshop, where every collection is still conceived, hand-embroidered, and pattern-tested by our original team of tailors.</p>
+      </div>
+    </div>
+    <div class="split-col">
+      <img src="./assets/salem interior.webp" alt="Salem atelier interior">
+      <div class="split-content split-clip">
+        <span class="eyebrow">Second Home</span>
+        <h3>Salem</h3>
+        <p>Opened in 2018, our Salem studio pairs Indian embroidery traditions with precision hand-finishing, deepening our roots in Tamil Nadu's textile heritage.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="founder">
+  <div class="wrap founder-grid">
+    <div class="founder-media reveal">
+      <img src="./assets/priya varatharajan.webp" alt="Founder portrait">
+    </div>
+    <div class="reveal">
+      <span class="eyebrow">Founder's Note</span>
+      <h2 style="margin-top:20px;">On why we still cut every pattern by hand.</h2>
+      <blockquote>"A garment should remember the body it was made for. That kind of memory can't be automated — it has to be stitched in, fitting by fitting, by someone who's paying attention."</blockquote>
+      <div class="fname">Priya Varadarajan</div>
+      <div class="frole">Founder & Creative Director, Stackly</div>
+    </div>
+  </div>
+</section>
+
+<section class="stats-band">
+  <div class="wrap">
+    <div class="stats-grid">
+      <div class="stat-item reveal"><div class="stat-num" data-count="2008" data-suffix="">0</div><div class="stat-label">Year Founded</div></div>
+      <div class="stat-item reveal"><div class="stat-num" data-count="60" data-suffix="+">0</div><div class="stat-label">Artisans</div></div>
+      <div class="stat-item reveal"><div class="stat-num" data-count="2" data-suffix="">0</div><div class="stat-label">Ateliers</div></div>
+      <div class="stat-item reveal"><div class="stat-num" data-count="1200" data-suffix="+">0</div><div class="stat-label">Bespoke Pieces</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="team">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2>The hands behind the house.</h2>
+      <p>A small team of designers, cutters, and stylists who each bring decades of craft.</p>
+    </div>
+    <div class="team-grid">
+      <div class="team-card reveal"><img src="./assets/priya.webp" alt="Team member"><div class="overlay"></div><div class="tc-info"><h4>Priya V.</h4><small>Creative Director</small></div></div>
+      <div class="team-card reveal"><img src="./assets/arjun.webp" alt="Team member"><div class="overlay"></div><div class="tc-info"><h4>Arjun M.</h4><small>Head Tailor</small></div></div>
+      <div class="team-card reveal"><img src="./assets/anaya.webp" alt="Team member"><div class="overlay"></div><div class="tc-info"><h4>Kavya R.</h4><small>Lead Stylist</small></div></div>
+      <div class="team-card reveal"><img src="./assets/rahul.webp" alt="Team member"><div class="overlay"></div><div class="tc-info"><h4>Rahul D.</h4><small>Textile Curator</small></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="press">
+  <div class="wrap">
+    <span class="eyebrow reveal">As Seen In</span>
+    <div class="press-row">
+      <span class="reveal">Vogue India</span>
+      <span class="reveal">Harper's Bazaar</span>
+      <span class="reveal">AD India</span>
+      <span class="reveal">Elle</span>
+      <span class="reveal">Grazia</span>
+    </div>
+    <p class="press-quote reveal">"Stackly is one of the rare houses left that still treats a garment as a relationship, not a transaction."<small>— Harper's Bazaar, 2025</small></p>
+  </div>
+</section>
+
+<section class="gallery">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2>Inside the atelier.</h2>
+      <p>Fragments from the workroom floor — fittings, fabric, and finished pieces.</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="g-item tall reveal"><img src="./assets/int2.webp" alt="Fabric bolts"></div>
+      <div class="g-item reveal"><img src="./assets/int 1.webp" alt="Sewing detail"></div>
+      <div class="g-item wide reveal"><img src="./assets/perfect fit.webp" alt="Fitting session"></div>
+      <div class="g-item reveal"><img src="./assets/hand emb.webp" alt="Embroidery detail"></div>
+      <div class="g-item reveal"><img src="./assets/tailor at work.webp" alt="Tailor at work"></div>
+      <div class="g-item reveal"><img src="./assets/finished garments.webp" alt="Finished garment"></div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2>Words from our clients.</h2>
+      <p>The relationships behind the garments, in their own words.</p>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p>"My bridal lehenga took four fittings, and every single one was worth it. Nothing off the rack has ever fit me this way."</p>
+        <div class="testi-name">Ananya S.</div>
+        <div class="testi-role">Bridal Client, 2025</div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p>"I've bought ready-to-wear for years, and Stackly is the first house where I can feel the difference in the seams."</p>
+        <div class="testi-name">Meera K.</div>
+        <div class="testi-role">Ready-to-Wear Client, 2024</div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p>"They dressed our entire leadership team for a global summit. Precise, punctual, and quietly luxurious."</p>
+        <div class="testi-name">Rohan V.</div>
+        <div class="testi-role">Corporate Client, 2024</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="wrap">
+    <span class="eyebrow" style="justify-content:center;">Visit Us</span>
+    <h2 style="margin-top:20px;">Step into the atelier for a private consultation.</h2>
+    <a href="./404.html" class="btn solid"><span>Book a Visit</span></a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo"><img src="stackly-logo.webp" alt="Stackly" class="logo-mark logo-mark--footer"><span class="logo-text" style="font-size:1.5rem;">Stackly</span></a>
+        <p>A luxury fashion atelier crafting bespoke silhouettes and curated ready-to-wear from our ateliers in Chennai and Salem.</p>
+        <div class="footer-social">
+          <a href="./404.html" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12.06C22 6.48 17.52 2 12 2S2 6.48 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.51 1.49-3.89 3.77-3.89 1.09 0 2.23.2 2.23.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.91h-2.34V22c4.78-.76 8.44-4.92 8.44-9.94z"/></svg></a>
+          <a href="./404.html" aria-label="X"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.9 2H22l-7.19 8.21L23.3 22h-6.62l-5.18-6.78L5.5 22H2.4l7.69-8.79L1 2h6.78l4.68 6.2L18.9 2zm-1.16 18h1.83L7.36 3.9H5.4L17.74 20z"/></svg></a>
+          <a href="./404.html" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2c2.7 0 3.06.01 4.12.06 1.06.05 1.79.22 2.43.47.66.26 1.22.6 1.77 1.15.55.55.89 1.11 1.15 1.77.25.64.42 1.37.47 2.43.05 1.06.06 1.42.06 4.12s-.01 3.06-.06 4.12c-.05 1.06-.22 1.79-.47 2.43a4.9 4.9 0 01-1.15 1.77 4.9 4.9 0 01-1.77 1.15c-.64.25-1.37.42-2.43.47-1.06.05-1.42.06-4.12.06s-3.06-.01-4.12-.06c-1.06-.05-1.79-.22-2.43-.47a4.9 4.9 0 01-1.77-1.15 4.9 4.9 0 01-1.15-1.77c-.25-.64-.42-1.37-.47-2.43C2.01 15.06 2 14.7 2 12s.01-3.06.06-4.12c.05-1.06.22-1.79.47-2.43.26-.66.6-1.22 1.15-1.77A4.9 4.9 0 015.45 2.53c.64-.25 1.37-.42 2.43-.47C8.94 2.01 9.3 2 12 2zm0 1.8c-2.66 0-2.98.01-4.03.06-.87.04-1.34.18-1.65.3-.42.16-.72.35-1.03.66-.31.31-.5.61-.66 1.03-.12.31-.26.78-.3 1.65C4.28 9.02 4.27 9.34 4.27 12s.01 2.98.06 4.03c.04.87.18 1.34.3 1.65.16.42.35.72.66 1.03.31.31.61.5 1.03.66.31.12.78.26 1.65.3 1.05.05 1.37.06 4.03.06s2.98-.01 4.03-.06c.87-.04 1.34-.18 1.65-.3.42-.16.72-.35 1.03-.66.31-.31.5-.61.66-1.03.12-.31.26-.78.3-1.65.05-1.05.06-1.37.06-4.03s-.01-2.98-.06-4.03c-.04-.87-.18-1.34-.3-1.65a2.7 2.7 0 00-.66-1.03 2.7 2.7 0 00-1.03-.66c-.31-.12-.78-.26-1.65-.3C14.98 3.81 14.66 3.8 12 3.8zm0 3.05a5.15 5.15 0 110 10.3 5.15 5.15 0 010-10.3zm0 1.8a3.35 3.35 0 100 6.7 3.35 3.35 0 000-6.7zm5.35-1.99a1.2 1.2 0 11-2.4 0 1.2 1.2 0 012.4 0z"/></svg></a>
+          <a href="./404.html" aria-label="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2s-.23-1.64-.94-2.36c-.9-.94-1.9-.95-2.36-1C17 2.5 12 2.5 12 2.5h-.01s-5 0-8.19.34c-.46.05-1.46.06-2.36 1C.73 4.56.5 6.2.5 6.2S.25 8.13.25 10.07v1.86c0 1.94.25 3.87.25 3.87s.23 1.64.94 2.36c.9.94 2.08.91 2.6 1.01C5.87 19.5 12 19.56 12 19.56s5.01-.01 8.2-.35c.46-.05 1.46-.06 2.36-1 .71-.72.94-2.36.94-2.36s.25-1.93.25-3.87v-1.86c0-1.94-.25-3.87-.25-3.87zM9.75 14.02V7.98L15.5 11l-5.75 3.02z"/></svg></a>
+        </div>
+      </div>
+      <div><h4>Quick Links</h4><ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="blog.html">Journal</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul></div>
+      <div><h4>The House</h4><ul>
+        <li><a href="./404.html">Our Story</a></li>
+        <li><a href="./404.html">Sustainability</a></li>
+        <li><a href="./404.html">Careers</a></li>
+        <li><a href="./404.html">Press</a></li>
+        <li><a href="./404.html">Shipping &amp; Returns</a></li>
+      </ul></div>
+      <div><h4>Visit The Atelier</h4><ul>
+        <li>Fort Main Road, Salem, Tamil Nadu 636001</li>
+        <li>Mon – Sat, 10am – 8pm</li>
+        <li>hello@stackly.com</li>
+        <li>+91 98765 43210</li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Stackly Atelier. All rights reserved.</span>
+      <div class="footer-legal">
+        <a href="./404.html">Privacy Policy</a>
+        <a href="./404.html">Cookies</a>
+        <a href="./404.html">Site Map</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+document.querySelectorAll('.page-hero .line').forEach(line=>{
+  const text = line.textContent;
+  line.innerHTML = '';
+  text.split('').forEach(ch=>{
+    const s = document.createElement('span');
+    s.className='char';
+    s.textContent = ch === ' ' ? '\u00A0' : ch;
+    line.appendChild(s);
+  });
+});
+function playHero(){
+  gsap.to('.page-hero .char',{y:0,duration:1,ease:"power4.out",stagger:0.015});
+  gsap.fromTo('.page-hero .eyebrow',{opacity:0,y:20},{opacity:1,y:0,duration:1,delay:0.1});
+  gsap.fromTo('.page-hero img',{scale:1.15},{scale:1,duration:2,ease:"power3.out"});
+}
+
+playHero()
+
+const track = document.getElementById('tickerTrack');
+gsap.to(track,{xPercent:-50,duration:16,ease:"none",repeat:-1});
+
+gsap.utils.toArray('.reveal').forEach(el=>{
+  gsap.to(el,{opacity:1,y:0,duration:1,ease:"power3.out",scrollTrigger:{trigger:el,start:"top 88%"}});
+});
+gsap.utils.toArray('.value-card').forEach((el,i)=>{
+  gsap.fromTo(el,{opacity:0,y:50},{opacity:1,y:0,duration:0.9,delay:i*0.1,ease:"power3.out",scrollTrigger:{trigger:el,start:"top 90%"}});
+});
+gsap.utils.toArray('.team-card').forEach((el,i)=>{
+  gsap.fromTo(el,{opacity:0,y:50},{opacity:1,y:0,duration:0.9,delay:i*0.08,ease:"power3.out",scrollTrigger:{trigger:el,start:"top 92%"}});
+});
+gsap.utils.toArray('.tl-item').forEach((el)=>{
+  gsap.fromTo(el,{opacity:0,x:-40},{opacity:1,x:0,duration:0.9,ease:"power3.out",scrollTrigger:{trigger:el,start:"top 90%"}});
+});
+
+/* Process step line fill + card stagger */
+gsap.to('#processFill',{width:"100%",ease:"none",scrollTrigger:{trigger:".process",start:"top 70%",end:"bottom 60%",scrub:0.6}});
+gsap.utils.toArray('.process-card').forEach((el,i)=>{
+  gsap.fromTo(el,{opacity:0,y:60},{opacity:1,y:0,duration:0.9,delay:i*0.1,ease:"power3.out",scrollTrigger:{trigger:el,start:"top 90%"}});
+});
+
+/* Materials stagger + zoom-in */
+gsap.utils.toArray('.material-card').forEach((el,i)=>{
+  gsap.fromTo(el,{opacity:0,scale:0.9},{opacity:1,scale:1,duration:0.8,delay:i*0.08,ease:"power3.out",scrollTrigger:{trigger:el,start:"top 92%"}});
+});
+
+/* Ateliers split clip reveal */
+gsap.utils.toArray('.split-clip').forEach((el,i)=>{
+  gsap.fromTo(el,{clipPath:"inset(0 0 100% 0)"},{clipPath:"inset(0 0 0% 0)",duration:1.1,delay:i*0.15,ease:"power4.out",scrollTrigger:{trigger:el,start:"top 85%"}});
+});
+gsap.utils.toArray('.split-col img').forEach(img=>{
+  gsap.fromTo(img,{scale:1.25},{scale:1,duration:1.4,ease:"power3.out",scrollTrigger:{trigger:img,start:"top 90%"}});
+});
+
+/* Stat counters */
+gsap.utils.toArray('.stat-num').forEach(el=>{
+  const target = parseInt(el.dataset.count,10);
+  const suffix = el.dataset.suffix || "";
+  const counter = {val:0};
+  ScrollTrigger.create({
+    trigger:el,start:"top 90%",once:true,
+    onEnter:()=>{
+      gsap.to(counter,{val:target,duration:1.8,ease:"power2.out",onUpdate:()=>{el.textContent = Math.floor(counter.val)+suffix;}});
+    }
+  });
+});
+
+/* Press */
+gsap.utils.toArray('.press-row span').forEach((el,i)=>{
+  gsap.fromTo(el,{opacity:0,y:20},{opacity:0.55,y:0,duration:0.7,delay:i*0.08,ease:"power3.out",scrollTrigger:{trigger:el,start:"top 92%"}});
+});
+
+/* Gallery */
+gsap.utils.toArray('.g-item').forEach((el,i)=>{
+  gsap.fromTo(el,{opacity:0,y:40,rotate:i%2===0?-1.5:1.5},{opacity:1,y:0,rotate:0,duration:0.9,delay:(i%3)*0.1,ease:"power3.out",scrollTrigger:{trigger:el,start:"top 92%"}});
+});
+
+/* Testimonials */
+gsap.utils.toArray('.testi-card').forEach((el,i)=>{
+  gsap.fromTo(el,{opacity:0,y:50},{opacity:1,y:0,duration:0.9,delay:i*0.1,ease:"power3.out",scrollTrigger:{trigger:el,start:"top 90%"}});
+});
+
+const hamburger = document.getElementById('hamburger');
+const mobileNav = document.getElementById('mobileNav');
+hamburger.addEventListener('click',()=>{
+  mobileNav.classList.toggle('open');
+  hamburger.classList.toggle('active');
+});
+mobileNav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{mobileNav.classList.remove('open');hamburger.classList.remove('active');}));
+
+if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){gsap.globalTimeline.timeScale(50);}
+</script>
+<script>
+(function(){
+  if('scrollRestoration' in history){ history.scrollRestoration = 'manual'; }
+  var STORE_KEY = 'stackly:scrollpos:' + location.pathname.replace(/^.*\//,'');
+  var sections = Array.prototype.slice.call(document.querySelectorAll('section'));
+  sections.forEach(function(sec, i){ if(!sec.id){ sec.id = 'auto-sec-' + i; } });
+
+  function navType(){
+    try{
+      var entries = performance.getEntriesByType && performance.getEntriesByType('navigation');
+      if(entries && entries.length){ return entries[0].type; }
+      if(performance.navigation){
+        return ['navigate','reload','back_forward'][performance.navigation.type] || 'navigate';
+      }
+    }catch(e){}
+    return 'navigate';
+  }
+
+  function currentSectionInfo(){
+    var y = window.scrollY;
+    var best = null, bestTop = -Infinity;
+    sections.forEach(function(sec){
+      var top = sec.getBoundingClientRect().top + y;
+      if(top <= y + 4 && top > bestTop){ best = sec; bestTop = top; }
+    });
+    if(!best) return null;
+    return { id: best.id, offset: y - bestTop };
+  }
+
+  function save(){
+    if(window.scrollY < 10){ sessionStorage.removeItem(STORE_KEY); return; }
+    var info = currentSectionInfo();
+    if(info){ sessionStorage.setItem(STORE_KEY, JSON.stringify(info)); }
+  }
+
+  var ticking = false;
+  window.addEventListener('scroll', function(){
+    if(!ticking){
+      window.requestAnimationFrame(function(){ save(); ticking = false; });
+      ticking = true;
+    }
+  }, {passive:true});
+  window.addEventListener('beforeunload', save);
+  window.addEventListener('pagehide', save);
+
+  window.addEventListener('load', function(){
+    /* Only restore a saved scroll position on an actual reload or a
+       browser back/forward navigation. A normal link click (e.g. the
+       nav-bar menu, or any button that loads this page fresh) is type
+       "navigate" and should always land at the top / hero section. */
+    var type = navType();
+    if(type !== 'reload' && type !== 'back_forward'){ return; }
+    try{
+      var raw = sessionStorage.getItem(STORE_KEY);
+      if(!raw) return;
+      var info = JSON.parse(raw);
+      var el = document.getElementById(info.id);
+      if(!el) return;
+      var attempts = 0;
+      function tryRestore(){
+        attempts++;
+        if(document.body.classList.contains('is-loading') && attempts < 400){
+          requestAnimationFrame(tryRestore);
+          return;
+        }
+        var top = el.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({ top: top + (info.offset || 0), behavior:'auto' });
+      }
+      tryRestore();
+    }catch(e){}
+  });
+})();
+</script>
+</body>
+</html>
